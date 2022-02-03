@@ -1,0 +1,13 @@
+{
+  "BASE_URLS": {
+    "DEV": "https://mobile-backend.dev.acima.in",
+    "QA": "https://mobile-backend.preflight.acima.in",
+    "UAT": "https://mobile-backend.sandbox.acima.com",
+    "LEARNING": "https://mobile-backend.learning.acima.in",
+    "PROD": ""
+  },
+  "ROUTES": {
+    "ACCESS_TOKEN": "/api/auth/getToken",
+    "GET_ALL_RETAILERS": "/api/store/getAllOnlineStores"
+  }
+}
