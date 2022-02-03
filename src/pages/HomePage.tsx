@@ -3,6 +3,7 @@ import SampleStores from '../models/Stores/SampleStores';
 import HttpResult from '../helpers/http/HttpResult';
 import HttpStatus from '../models/utils/HttpResult';
 import SampleServices from '../services/SampleService';
+import { Stack } from '@mui/material';
 
 const HomePage: FC = () => {
   const a = 10;
@@ -20,6 +21,10 @@ const HomePage: FC = () => {
         console.log((error as Error).message);
       });
   });
-  return(<h1>Hello World</h1>)
-}
-export default HomePage
+  return (
+    <Stack>
+      <h1>Hello World</h1>
+    </Stack>
+  );
+};
+export default HomePage;
