@@ -1,0 +1,21 @@
+#HomePage {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+.HeaderText {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial,
+    sans-serif;
+}
+.TableHeader {
+  background-color: rgb(202, 202, 202);
+}
+.TableHeaderContent {
+  text-align: center;
+  font-weight: bold;
+}
+.TableContainer {
+  margin-top: 5;
+}

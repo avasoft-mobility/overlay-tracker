@@ -1,6 +1,6 @@
 {
   "BASE_URLS": {
-    "DEV": "https://mobile-backend.dev.acima.in",
+    "DEV": "http://localhost:4003",
     "QA": "https://mobile-backend.preflight.acima.in",
     "UAT": "https://mobile-backend.sandbox.acima.com",
     "LEARNING": "https://mobile-backend.learning.acima.in",
@@ -8,6 +8,8 @@
   },
   "ROUTES": {
     "ACCESS_TOKEN": "/api/auth/getToken",
-    "GET_ALL_RETAILERS": "/api/store/getAllOnlineStores"
+    "GET_ALL_RETAILERS": "/api/store/getAllOnlineStores",
+    "GET_ALL_USER_TRACKING_BY_SEARCH": "/api/overlaylog/session/search/",
+    "GET_RECENT_TEN_LOGS": "/api/overlaylog/session"
   }
 }
