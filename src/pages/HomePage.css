@@ -1,0 +1,11 @@
+.container{
+  float: left;
+}
+.parent{
+  float:left;
+  margin-right: 0px;
+}
+.childcontent{
+  inline-size: 150px;
+  overflow-wrap: break-word;
+}
