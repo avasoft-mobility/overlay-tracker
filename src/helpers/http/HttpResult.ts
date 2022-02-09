@@ -1,4 +1,5 @@
-import HttpStatus from '../../models/utils/HttpResult';
+import HttpStatus from "../../models/utils/HttpStatus";
+
 
 class HttpResult<T> {
   data: T | null;

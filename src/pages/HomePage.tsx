@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import SampleStores from '../models/Stores/Events';
 import HttpResult from '../helpers/http/HttpResult';
-import HttpStatus from '../models/utils/HttpResult';
-import SampleServices from '../services/SampleService';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -14,96 +12,66 @@ import Typography from '@mui/material/Typography';
 import './HomePage.css'
 import Events from '../models/Stores/Events';
 import EventTypeEnum from '../models/utils/EventTypeEnum';
+import LogTracker from '../services/LogTracker';
+import HttpStatus from '../models/utils/HttpStatus';
 
 const HomePage: FC = () => {
-  const steps: Events[] = [
-    {
-      "session_guid": "sess-74512698asa5",
-      "event_name": "Entry",
-      "event_timestamp": "2/2/2022 12:13:39",
-      "pay_load": "clicked",
-      "scrapped_data": "False"
-  },
-  {
-    "session_guid": "sess-74512698asa5",
-    "event_name": "Processing",
-    "event_timestamp": "2/2/2022 12:13:39",
-    "pay_load": "clickeddddddddddddddddddddddddddddddddddddddddddddddddd",
-    "scrapped_data": "False"
-},
-{
-  "session_guid": "sess-74512698asa5",
-  "event_name": "Entry",
-  "event_timestamp": "2/2/2022 12:13:39",
-  "pay_load": "clicked",
-  "scrapped_data": "False"
-},
-{
-  "session_guid": "sess-74512698asa5",
-  "event_name": "Processing",
-  "event_timestamp": "2/2/2022 12:13:39",
-  "pay_load": "clicked",
-  "scrapped_data": "False"
-},
-{
-  "session_guid": "sess-74512698asa5",
-  "event_name": "Checking",
-  "event_timestamp": "2/2/2022 12:13:39",
-  "pay_load": "clicked",
-  "scrapped_data": "False"
-},
-{
-  "session_guid": "sess-74512698asa5",
-  "event_name": "Exit",
-  "event_timestamp": "2/2/2022 12:13:39",
-  "pay_load": "clicked",
-  "scrapped_data": "False"
-},
-  ];
   let induvidualData: any[] = [];
   let Oldvalue: number = 0;
-  const [stepUI, setStepUI] = useState<Events[]>(steps);
+  const [stepUI, setStepUI] = useState<Events[]>([]);
   const [activeStep, setActiveStep] = useState<number[]>([]);
   const [splittedEvents, setsplittedEvents] = useState([]);
-  let count = 0;
-
+      // eslint-disable-next-line no-restricted-globals
+  const sessionGuid = location.href.split('tracker/')[1];
   const EventTypeReturn = (event: string) => {
-    var eetype: string = EventTypeEnum[event];
-    var etype: EventTypeEnum = EventTypeEnum[eetype];
-    var enumValue = Object.keys(EventTypeEnum).map(key => EventTypeEnum[etype]);
-    if ((Number)(enumValue[0]) > Oldvalue) {
-      Oldvalue = (Number)(enumValue[0]);
+    var eetype: number = EventTypeEnum[event];
+    if (eetype >= Oldvalue) {
+      Oldvalue = eetype;
       return true;
     }
-    count++;
-    Oldvalue = (Number)(enumValue[0]);
+    Oldvalue = eetype;
     return false;
   }
 
   useEffect(() => {
-    splitting();
+    LogTracker.getAllEvents(sessionGuid)
+      .then((response: HttpResult<Events[]>) => {
+        if (response.status === HttpStatus.Success) {
+          // access the data through `response.data`
+          setStepUI(response.data);
+          splitting(response.data);
+        }
+      })
+      .catch((error) => {
+        console.log((error as Error).message);
+      });
+
   }, []);
 
-  const splitting = () => {
-
+  const splitting = (data) => {
     let splittedData = [];
-    steps.map((step, index) => {
+    data.map((step, index) => {
       if (EventTypeReturn(step.event_name)) {
         if (splittedData.length != 0) {
           if (induvidualData.length != 0)
             induvidualData.push(step);
-          if (steps.length - 1 == index) {
+          if (data.length - 1 == index) {
             splittedData.push(induvidualData);
             induvidualData = [];
           }
         } else {
-          induvidualData.push(step)
+          induvidualData.push(step);
+          if (data.length - 1 == index) {
+            splittedData.push(induvidualData);
+            induvidualData = [];
+          }
         }
       } else {
+
         splittedData.push(induvidualData);
         induvidualData = [];
         induvidualData.push(step);
-        if (steps.length == index) {
+        if (data.length - 1 == index) {
           splittedData.push(induvidualData);
           induvidualData = [];
         }
@@ -113,10 +81,11 @@ const HomePage: FC = () => {
 
     let activeStepListIndex = [];
     for (let i = 0; i < splittedData.length; i++) {
-      activeStepListIndex.push(steps.length+1);
+      activeStepListIndex.push(data.length+1);
     }
     setActiveStep(activeStepListIndex);
     setsplittedEvents(splittedData);
+    console.log(splittedData)
   }
 
   const handleNext = () => {
@@ -125,8 +94,14 @@ const HomePage: FC = () => {
 
   const handleClick = (indices: number, index: number) => {
     const activeList = [...activeStep];
-    activeList[indices] = index;
-    setActiveStep(activeList);
+    if(index == activeList[indices]){
+      activeList[indices] = stepUI.length+1
+      setActiveStep(activeList);
+    }
+    else{
+      activeList[indices] = index;
+      setActiveStep(activeList);
+    }
   }
 
   const handleBack = () => {
@@ -134,10 +109,11 @@ const HomePage: FC = () => {
   }
 
   return (
-    <Box className='container' sx={{ maxWidth: 400, marginLeft: 10, marginTop: 5 }}>
+    <Box className='container' sx={{ marginLeft: 10, marginTop: 5 }}>
 
         {splittedEvents.map((flow, indices) => {
-          return <Stepper className='parent' activeStep={activeStep[indices]} orientation={'vertical'} key={indices}>
+          return (<div className='parent'>
+            <Stepper activeStep={activeStep[indices]} orientation={'vertical'} key={indices}>
             {flow.map((step, index) => (
               <Step key={index}>
                 <StepLabel className='child' onClick={() => { handleClick(indices, index) }}>
@@ -146,15 +122,17 @@ const HomePage: FC = () => {
                     <p style={{
                       margin: 0,
                       fontSize: 12
-                    }}>abc</p>
+                    }}>{step.event_timestamp}</p>
                   </div>
                 </StepLabel>
                 <StepContent >
                   <Typography className='childcontent'>{step.pay_load}</Typography>
+                  <Typography className='childcontent'>{step.scrapped_data}</Typography>
                   <Box sx={{ mb: 2 }}>
                     <div>
                       <Button
                         variant="contained"
+                        size="small"
                         onClick={handleNext}
                         sx={{ mt: 1, mr: 1 }}
                       >
@@ -162,6 +140,7 @@ const HomePage: FC = () => {
                       </Button>
                       <Button
                         disabled={index === 0}
+                        size="small"
                         onClick={handleBack}
                         sx={{ mt: 1, mr: 1 }}
                       >
@@ -173,6 +152,8 @@ const HomePage: FC = () => {
               </Step>
             ))}
           </Stepper>
+          </div>)
+
         })}
 
 

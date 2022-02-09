@@ -8,6 +8,6 @@
   },
   "ROUTES": {
     "ACCESS_TOKEN": "/api/auth/getToken",
-    "GET_ALL_RETAILERS": "/api/store/getAllOnlineStores"
+    "GET_event_List": "/api/overlaylog/session/{sessionID}/events"
   }
 }
