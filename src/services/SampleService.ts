@@ -1,8 +1,8 @@
 import HttpClient from '../helpers/http/HttpHelper';
 import Config from '../configs/config.json';
 import HttpResult from '../helpers/http/HttpResult';
-import HttpStatus from '../models/utils/HttpResult';
-import SampleStores from '../models/Stores/SampleStores';
+import HttpStatus from '../models/utils/HttpStatus';
+import SampleStores from '../models/Stores/OverlayTrackingModel';
 
 class SampleServices {
   static getAllStores = async (): Promise<HttpResult<SampleStores[]>> => {
