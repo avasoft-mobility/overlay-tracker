@@ -254,7 +254,14 @@ const HomePage: FC = () => {
     alert(sessionGuid);
   };
   return (
-    <Stack id="HomePage">
+    <Stack
+      id="HomePage"
+      style={{
+        display: 'flex',
+        marginLeft: 50,
+        marginRight: 50,
+      }}
+    >
       <Grid>
         <Typography
           variant="h2"
