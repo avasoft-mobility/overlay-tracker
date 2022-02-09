@@ -22,17 +22,15 @@ import LogTracking from '../services/LogTracking';
 import { Oval } from 'react-loader-spinner';
 
 const SearchPage: FC = () => {
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [page, setPage] = React.useState(0);
-  const [searchContent, setSearchContent] = React.useState<OverlayTrackingModel[]>([]);
-  const [spinner, setSpinner] = React.useState<boolean>(false);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+  const [searchContent, setSearchContent] = useState<OverlayTrackingModel[]>([]);
+  const [spinner, setSpinner] = useState<boolean>(false);
 
   useEffect(() => {
     setSpinner(true);
     // eslint-disable-next-line no-restricted-globals
     const searchText = location.href.split('search/')[1];
-    debugger;
-    // console.log(String(Config.ROUTES.GAT_ALL_USER_TRACKING_LOGS + searchText));
     LogTracking.getAllUserTrackingLogs(searchText)
       .then((response: HttpResult<OverlayTrackingModel[]>) => {
         if (response.status === HttpStatus.Success) {
@@ -46,200 +44,12 @@ const SearchPage: FC = () => {
       })
       .catch((error) => {
         // Used console log for demonstration purpose. Do not use console.log when you're
-        // developing the app.
-        // eslint-disable-next-line no-console
         console.log((error as Error).message);
       });
   }, []);
 
-  // const content: OverlayTrackingModel[] = [
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '300000',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '300000',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '300000',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '300000',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  //   {
-  //     customer_guid: 'cus-784512',
-  //     lease_id: '4512369',
-  //     lease_guid: 'les-4512698',
-  //     location_guid: 'loc-798451369',
-  //     session_guid: 'sess-7451a88',
-  //     overlay_start_time: '12/02/2021 12:00PM',
-  //     overlay_end_time: '12/02/2021 1:00PM',
-  //   },
-  // ];
   const OnRowClicked = (sessionGuid: string) => {
-    console.log(sessionGuid);
-    //e.currentTarget.focus();
-    let path = `/tracker/${sessionGuid}`;
-    navigate(path, { state: { trackerGuid: sessionGuid } });
-    alert(sessionGuid);
+    navigate(`/tracker/${sessionGuid}`);
   };
 
   const navigate = useNavigate();
@@ -255,7 +65,7 @@ const SearchPage: FC = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  //const [rows, setRows] = useState<OverlayTrackingModel[]>(searchContent);
+
   const OnSearchingUser = (searchText: string) => {
     LogTracking.getAllUserTrackingLogs(searchText)
       .then((response: HttpResult<OverlayTrackingModel[]>) => {
@@ -267,8 +77,6 @@ const SearchPage: FC = () => {
       })
       .catch((error) => {
         // Used console log for demonstration purpose. Do not use console.log when you're
-        // developing the app.
-        // eslint-disable-next-line no-console
         console.log((error as Error).message);
       });
   };
@@ -402,9 +210,15 @@ const SearchPage: FC = () => {
 
                       <TableCell align="center">{row.session_guid}</TableCell>
 
-                      <TableCell align="center">{row.overlay_start_time}</TableCell>
+                      <TableCell align="right">
+                        {new Date(row.overlay_start_time).toLocaleString()}
+                      </TableCell>
 
-                      <TableCell align="center">{row.overlay_end_time}</TableCell>
+                      <TableCell align="right">
+                        {row.overlay_end_time == null
+                          ? 'InComplete Session'
+                          : new Date(row.overlay_start_time).toLocaleString()}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
