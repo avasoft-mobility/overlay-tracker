@@ -1,0 +1,25 @@
+.childcontent {
+  inline-size: 150px;
+  overflow-wrap: break-word;
+}
+
+.container {
+  display: flex;
+}
+
+.parent {
+  width: 300px;
+}
+.backbtn {
+  float: right;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.popup {
+  width: 300px;
+}
+.loader {
+  margin-left: 50%;
+  margin-top: 20%;
+}

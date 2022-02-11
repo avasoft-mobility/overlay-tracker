@@ -10,6 +10,7 @@
     "ACCESS_TOKEN": "/api/auth/getToken",
     "GET_ALL_RETAILERS": "/api/store/getAllOnlineStores",
     "GET_ALL_USER_TRACKING_BY_SEARCH": "/api/overlaylog/session/search/",
-    "GET_RECENT_TEN_LOGS": "/api/overlaylog/session"
+    "GET_RECENT_TEN_LOGS": "/api/overlaylog/session",
+    "GET_event_List": "/api/overlaylog/session/{sessionID}/events"
   }
 }
