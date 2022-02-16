@@ -13,6 +13,10 @@ const Buttons: FC<prop> = ({ text, onClick }): JSX.Element => {
       size="large"
       style={{
         cursor: 'pointer',
+        color: "#ffffff",
+        backgroundColor: "#005b96",
+        display:"flex"
+
       }}
       onClick={onClick}
     >

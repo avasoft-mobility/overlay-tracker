@@ -20,6 +20,7 @@ import HttpResult from '../helpers/http/HttpResult';
 import HttpStatus from '../models/utils/HttpStatus';
 import LogTracking from '../services/LogTracking';
 import { Oval } from 'react-loader-spinner';
+import logo from '../assets/AcimaLogo.png';
 
 const HomePage: FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -71,15 +72,18 @@ const HomePage: FC = () => {
       }}
     >
       <Grid>
+
+      <img src={logo} alt="Logo" height={30} text-align="center" />
+
         <Typography
           variant="h2"
           className="HeaderText"
           fontFamily="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"
           fontWeight="bold"
           component="h2"
-          color="Blue"
+          color="#005b96"
         >
-          Overlay User Tracker
+          Overlay Activity Tracker
         </Typography>
       </Grid>
       <Grid width={600} marginTop={2} marginBottom={10}>
@@ -92,22 +96,32 @@ const HomePage: FC = () => {
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="caption table">
                 {/* Table Header */}
-                <TableHead className="TableHeader">
-                  <TableRow>
+                <TableHead className="TableHeader" style={{
+                    backgroundColor: '#005b96',
+                    color: '#ffffff',
+                    padding: '0'
+                    
+                  }}>
+                  <TableRow style={{
+                    color: '#000000'
+                  }}>
                     <TableCell
                       className="TableHeaderContent"
                       style={{
-                        textAlign: 'center',
+                        color: '#ffffff',
+                        textAlign: 'left',
                         fontWeight: 'bold',
                       }}
                     >
-                      Customer Guid
+                      Customer GUID
                     </TableCell>
                     <TableCell
                       className="TableHeaderContent"
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
+                        padding: '0px'
                       }}
                       align="right"
                     >
@@ -116,6 +130,7 @@ const HomePage: FC = () => {
                     <TableCell
                       className="TableHeaderContent"
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
@@ -126,6 +141,7 @@ const HomePage: FC = () => {
                     <TableCell
                       className="TableHeaderContent"
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
@@ -136,6 +152,7 @@ const HomePage: FC = () => {
                     <TableCell
                       className="TableHeaderContent"
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
@@ -146,22 +163,24 @@ const HomePage: FC = () => {
                     <TableCell
                       className="TableHeaderContent"
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
                       align="right"
                     >
-                      User Overlay Start Time
+                      Session Start Time
                     </TableCell>
                     <TableCell
                       className="TableHeaderContent"
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
                       align="right"
                     >
-                      Overlay End Time
+                      Session End Time
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -230,7 +249,7 @@ const HomePage: FC = () => {
             marginTop: 0,
           }}
         >
-          <Oval color="#00BFFF" height={100} width={100} />
+          <Oval color="#005b96" height={100} width={100} secondaryColor="" />
         </Grid>
       ) : null}
     </Stack>

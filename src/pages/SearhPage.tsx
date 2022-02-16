@@ -20,6 +20,8 @@ import OverlayTrackingModel from '../models/Stores/OverlayTrackingModel';
 import HttpStatus from '../models/utils/HttpStatus';
 import LogTracking from '../services/LogTracking';
 import { Oval } from 'react-loader-spinner';
+import Typography from '@mui/material/Typography';
+import logo from '../assets/AcimaLogo.png';
 
 const SearchPage: FC = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -81,22 +83,75 @@ const SearchPage: FC = () => {
       });
   };
   return (
-    <Container>
+    <Stack style={{marginLeft: '40px', marginRight: '40px'}}>
       {!spinner ? (
-        <Stack style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ width: '350px', marginLeft: 'auto', marginTop: '30px' }}>
+        <Stack>
+
+<div>
+
+            <div style={{float: 'left', marginBottom:'10px'}}>
+              <img
+              src={logo}
+              alt="Logo"
+              height={30}
+              text-align="center"
+              style={{
+                marginTop: '100px',
+              }}
+            />
+          <Typography
+            variant="h2"
+            className="HeaderText"
+            fontFamily="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"
+            fontWeight="bold"
+            component="h2"
+            color="#005b96"
+          >
+            Search
+          </Typography>
+
+            <Typography
+              variant="h6"
+              className="HeaderText"
+              fontFamily="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"
+              fontWeight="bold"
+              align="center"
+              alignItems="center"
+              component="h2"
+              color="#005b96"
+              style={{ float: 'left' }}
+            >
+              
+            </Typography>
+
+            </div>
+
+          
+
+           
+          </div>
+
+
+<div>
+
+<div style={{ float:'right', width: '350px', marginLeft: 'auto', marginBottom: '30px' }}>
             <SearchBox clicked={OnSearchingUser}></SearchBox>
           </div>
 
           <div
             style={{
+              float:'left',
               marginRight: 'auto',
-              marginBottom: '20px',
+              marginTop: '20px',
               alignItems: 'baseline',
             }}
           >
             <Buttons text="Back" onClick={() => BackClicked()}></Buttons>
           </div>
+
+</div>
+
+       
         </Stack>
       ) : null}
       {!spinner ? (
@@ -107,18 +162,19 @@ const SearchPage: FC = () => {
           }}
         >
           <Paper>
-            <TableContainer component={Paper}>
+            <TableContainer sx={{ marginTop: 2}} component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="caption table">
                 {/* Table Header */}
                 <TableHead
                   style={{
-                    backgroundColor: 'rgb(202, 202, 202)',
+                    backgroundColor: '#005b96',
                   }}
                 >
                   <TableRow>
                     <TableCell
                       style={{
-                        textAlign: 'center',
+                        color: '#ffffff',
+                        textAlign: 'left',
                         fontWeight: 'bold',
                       }}
                     >
@@ -126,8 +182,10 @@ const SearchPage: FC = () => {
                     </TableCell>
                     <TableCell
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
+                        padding: '0px'
                       }}
                       align="right"
                     >
@@ -135,15 +193,17 @@ const SearchPage: FC = () => {
                     </TableCell>
                     <TableCell
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
                       align="right"
                     >
-                      Lease Guid
+                      Lease GUID
                     </TableCell>
                     <TableCell
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
@@ -153,6 +213,7 @@ const SearchPage: FC = () => {
                     </TableCell>
                     <TableCell
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
@@ -162,21 +223,23 @@ const SearchPage: FC = () => {
                     </TableCell>
                     <TableCell
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
                       align="right"
                     >
-                      User Overlay Start Time
+                      Session Start Time
                     </TableCell>
                     <TableCell
                       style={{
+                        color: '#ffffff',
                         textAlign: 'center',
                         fontWeight: 'bold',
                       }}
                       align="right"
                     >
-                      Overlay End Time
+                      Session End Time
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -245,10 +308,10 @@ const SearchPage: FC = () => {
             marginTop: 200,
           }}
         >
-          <Oval color="#00BFFF" height={100} width={100} />
+          <Oval color="#005b96" height={100} width={100} secondaryColor="" />
         </Grid>
       ) : null}
-    </Container>
+    </Stack>
   );
 };
 

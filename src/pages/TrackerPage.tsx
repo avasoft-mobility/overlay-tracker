@@ -5,14 +5,9 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
+import logo from '../assets/AcimaLogo.png';
+
+import { Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -85,7 +80,7 @@ const TrackerPage: FC = () => {
       .catch((error) => {
         console.log((error as Error).message);
       });
-      LogTracker.getAllUserTrackingLogs(sessionGuid)
+    LogTracker.getAllUserTrackingLogs(sessionGuid)
       .then((response: HttpResult<OverlayTrackingModel[]>) => {
         if (response.status === HttpStatus.Success) {
           // access the data through `response.data`
@@ -98,8 +93,6 @@ const TrackerPage: FC = () => {
         // Used console log for demonstration purpose. Do not use console.log when you're
         console.log((error as Error).message);
       });
-
-
   }, []);
 
   const splitting = (data) => {
@@ -162,11 +155,11 @@ const TrackerPage: FC = () => {
       activeList[indices] = stepUI.length + 1;
       setActiveStep(activeList);
     } else {
-      if(activeList[indices] != 0){
-        for(let i=0; i < activeList.length; i++) {
+      if (activeList[indices] != 0) {
+        for (let i = 0; i < activeList.length; i++) {
           if (i !== indices) {
             activeList[i] = stepUI.length + 1;
-            setActiveStep(activeList)
+            setActiveStep(activeList);
           }
         }
       }
@@ -191,127 +184,179 @@ const TrackerPage: FC = () => {
   // }
 
   return (
-    <Container>
+    <Stack style={{marginLeft: '40px', marginRight: '40px'}}>
       {!loader ? (
         <>
-        <div className="backbtn">
-            <Buttons text="Back" onClick={() => BackClicked()}></Buttons>
+           
+
+          <div>
+
+            <div style={{float: 'left', marginBottom:'10px'}}>
+              <img
+              src={logo}
+              alt="Logo"
+              height={30}
+              text-align="center"
+              style={{
+                marginTop: '100px',
+              }}
+            />
+          <Typography
+            variant="h2"
+            className="HeaderText"
+            fontFamily="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"
+            fontWeight="bold"
+            component="h2"
+            color="#005b96"
+          >
+            {`#${searchContent[0].lease_id}`}
+          </Typography>
+
+            <Typography
+              variant="h6"
+              className="HeaderText"
+              fontFamily="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif"
+              fontWeight="bold"
+              align="center"
+              alignItems="center"
+              component="h2"
+              color="#005b96"
+              style={{ float: 'left' }}
+            >
+              {`${stepUI[0].pay_load}`}
+            </Typography>
+
+            </div>
+
+          
+
+            <div style={{ marginBottom: '30px', float: 'right', marginTop: '150px' }}>
+              <Buttons text="Back" onClick={() => BackClicked()}></Buttons>
+            </div>
           </div>
-        <TableContainer sx={{marginTop: 2}} component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="caption table">
-                {/* Table Header */}
-                <TableHead
-                  style={{
-                    backgroundColor: 'rgb(202, 202, 202)',
-                  }}
-                >
-                  <TableRow>
-                    <TableCell
-                      style={{
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      Customer GUID
+
+          <TableContainer sx={{ marginTop: 2, marginBottom: 10 }} component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="caption table">
+              {/* Table Header */}
+              <TableHead
+                style={{
+                  backgroundColor: '#005b96',
+                }}
+              >
+                <TableRow>
+                  <TableCell
+                    style={{
+                      color: '#ffffff',
+                      textAlign: 'left',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Customer GUID
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      color: '#ffffff',
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    }}
+                    align="right"
+                  >
+                    Lease ID
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      color: '#ffffff',
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    }}
+                    align="right"
+                  >
+                    Lease Guid
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      color: '#ffffff',
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    }}
+                    align="right"
+                  >
+                    Location GUID
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      color: '#ffffff',
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    }}
+                    align="right"
+                  >
+                    Session GUID
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      color: '#ffffff',
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    }}
+                    align="right"
+                  >
+                    Session Start Time
+                  </TableCell>
+                  <TableCell
+                    style={{
+                      color: '#ffffff',
+                      textAlign: 'center',
+                      fontWeight: 'bold',
+                    }}
+                    align="right"
+                  >
+                    Session End Time
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+
+              {/* Table Body
+            Each Row in a table is a clickable row. So that the data of the clicked
+            row can be passed to the next page
+        */}
+              <TableBody role="button" tabIndex={0}>
+                {/* Iterating throught each element in the response object */}
+                {searchContent.map((row: OverlayTrackingModel) => (
+                  <TableRow
+                    hover
+                    style={{
+                      cursor: 'pointer',
+                    }}
+                    key={row.session_guid}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.customer_guid}
                     </TableCell>
-                    <TableCell
-                      style={{
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                      }}
-                      align="right"
-                    >
-                      Lease ID
+
+                    <TableCell align="center">{row.lease_id}</TableCell>
+
+                    <TableCell align="center">{row.lease_guid}</TableCell>
+
+                    <TableCell align="center">{row.location_guid}</TableCell>
+
+                    <TableCell align="center">{row.session_guid}</TableCell>
+
+                    <TableCell align="right">
+                      {new Date(row.overlay_start_time).toLocaleString()}
                     </TableCell>
-                    <TableCell
-                      style={{
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                      }}
-                      align="right"
-                    >
-                      Lease Guid
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                      }}
-                      align="right"
-                    >
-                      Location GUID
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                      }}
-                      align="right"
-                    >
-                      Session GUID
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                      }}
-                      align="right"
-                    >
-                      User Overlay Start Time
-                    </TableCell>
-                    <TableCell
-                      style={{
-                        textAlign: 'center',
-                        fontWeight: 'bold',
-                      }}
-                      align="right"
-                    >
-                      Overlay End Time
+
+                    <TableCell align="right">
+                      {row.overlay_end_time == null
+                        ? 'InComplete Session'
+                        : new Date(row.overlay_start_time).toLocaleString()}
                     </TableCell>
                   </TableRow>
-                </TableHead>
-
-                {/* Table Body
-              Each Row in a table is a clickable row. So that the data of the clicked
-              row can be passed to the next page
-          */}
-                <TableBody role="button" tabIndex={0}>
-                  {/* Iterating throught each element in the response object */}
-                  {searchContent.map((row: OverlayTrackingModel) => (
-                    <TableRow
-                      hover
-                      style={{
-                        cursor: 'pointer',
-                      }}
-                      key={row.session_guid}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.customer_guid}
-                      </TableCell>
-
-                      <TableCell align="center">{row.lease_id}</TableCell>
-
-                      <TableCell align="center">{row.lease_guid}</TableCell>
-
-                      <TableCell align="center">{row.location_guid}</TableCell>
-
-                      <TableCell align="center">{row.session_guid}</TableCell>
-
-                      <TableCell align="right">
-                        {new Date(row.overlay_start_time).toLocaleString()}
-                      </TableCell>
-
-                      <TableCell align="right">
-                        {row.overlay_end_time == null
-                          ? 'InComplete Session'
-                          : new Date(row.overlay_start_time).toLocaleString()}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          <Box className="container" sx={{ marginLeft: 10, marginTop: 5, marginBottom:5 }}>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Box className="container" sx={{ marginLeft: 10, marginTop: 5, marginBottom: 5 }}>
             {splittedEvents.map((flow, indices) => {
               return (
                 <div className="parent">
@@ -344,31 +389,30 @@ const TrackerPage: FC = () => {
                             React.Fragment
                           )}
                           <Dialog
-        open={open}
-        onClose={handleClosePop}
-        scroll={scroll}
-        aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
-      >
-        <DialogTitle id="scroll-dialog-title">Scrapped Data</DialogTitle>
-        <DialogContent dividers={scroll === 'paper'}>
-          <DialogContentText
-            id="scroll-dialog-description"
-            tabIndex={-1}
-          >
-            {
+                            open={open}
+                            onClose={handleClosePop}
+                            scroll={scroll}
+                            aria-labelledby="scroll-dialog-title"
+                            aria-describedby="scroll-dialog-description"
+                          >
+                            <DialogTitle id="scroll-dialog-title">Scrapped Data</DialogTitle>
+                            <DialogContent dividers={scroll === 'paper'}>
+                              <DialogContentText id="scroll-dialog-description" tabIndex={-1}>
+                                {
                                   <div>
                                     <pre>
-                                      {JSON.stringify(JSON.parse(step.scrapped_data), null, 2).replaceAll(']','').replace('[','')}
+                                      {JSON.stringify(JSON.parse(step.scrapped_data), null, 2)
+                                        .replaceAll(']', '')
+                                        .replace('[', '')}
                                     </pre>
                                   </div>
                                 }
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClosePop}>Cancel</Button>
-        </DialogActions>
-      </Dialog>
+                              </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleClosePop}>Cancel</Button>
+                            </DialogActions>
+                          </Dialog>
                           <Box sx={{ mb: 2 }}>
                             <div>
                               <Button
@@ -407,7 +451,7 @@ const TrackerPage: FC = () => {
           <CircularProgress />
         </Box>
       )}
-    </Container>
+    </Stack>
   );
 };
 

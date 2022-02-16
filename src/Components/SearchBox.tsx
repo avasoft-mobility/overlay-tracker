@@ -20,7 +20,7 @@ const SearchBox: FC<prop> = ({ clicked }) => {
       {/* Search Box */}
       <Paper
         component="form"
-        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', mt: 2 }}
+        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', mt: 2}}
       >
         <InputBase
           sx={{ ml: 1, flex: 2 }}
@@ -28,7 +28,7 @@ const SearchBox: FC<prop> = ({ clicked }) => {
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
-          placeholder="Search based on Guids or lease details"
+          placeholder="Search based on GUIDs or Lease Details"
           inputProps={{ 'aria-label': 'Search based on Guids or lease details' }}
           onKeyPress={(e) => EnterHandle(e)}
         />
